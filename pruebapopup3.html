@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title></title>
+</head>
+<body>
+	<header class=""></header>
+	<main class="" style="background-color: red; width: 90%; height: 300px; margin: 0px auto;">
+		<div id="popup1"  style="background-color: rgb(204, 204, 204); padding: 10px; border-radius: 10px; display:none;">
+			<h1>hola Enfermera</h1>
+			<button id="ocultar">Ocultar</button>
+		</div>
+		<div id="popup2"  style="background-color: rgb(204, 204, 204); padding: 10px; border-radius: 10px; display:none;">
+			<h1>hola Enfermera 2 </h1>
+			<button id="ocultar2">Ocultar</button>
+		</div>
+		<button id="mostrar">Mostrar</button>
+		<button id="mostrar2">Mostrar2</button>
+	</main>
+	<footer class=""></footer>
+</body>
+</html>
+<script src="popup_dialogo.js"></script>
+<script>
+	var popup = new PopupDialogo( "popup1", true );
+	var popup2 = new PopupDialogo( "popup2", true );
+	
+	document.getElementById('mostrar').onclick = function(){
+		popup.MostrarDialogo();
+		popup.setConteLeft('30%');
+		popup.setBackgroundColor( '#000');
+		popup.setOpacity(50);
+	}
+
+	document.getElementById('ocultar').onclick = function(){ popup.OcultarDialogo(); }
+
+	document.getElementById('mostrar2').onclick = function(){
+		popup2.MostrarDialogo();
+		popup2.setConteLeft('20%');
+		popup2.setBackgroundColor( '#ccc');
+		popup2.setOpacity(75);
+	}
+
+	document.getElementById('ocultar2').onclick = function(){ popup2.OcultarDialogo(); }
+	
+</script>
