@@ -1,15 +1,21 @@
-function PopupDialogo( pstIdDiv )
+/**
+* Popup javascrip Clase javascript que permite crear el efecto popup.
+* @mail: nitsugario@gmail.com
+* nitsugario.com
+**/
+
+function PopupDialogo( pstIdDiv, pboEnElemento )
 {
 	this.lstIdDiv     = pstIdDiv;
 	this.lnuConteTop  = 0;
 	this.lnuConteLeft = 0;
 	this.opciones     = {
-			lstColorFondo: '#fff',
-			lnuLeft: 0,
-			lnuTop:0,
-			lnuOpacity:75,
-			lnuZIndex: 100
-		}
+							lstColorFondo: '#fff',
+							lnuLeft: 0,
+							lnuTop:0,
+							lnuOpacity:75,
+							lnuZIndex: 100
+						}
 
 	var dialog = document.getElementById( this.lstIdDiv );
 
@@ -33,36 +39,72 @@ function PopupDialogo( pstIdDiv )
 		return typeof window.pageXOffset != 'undefined' ? window.pageXOffset : document.documentElement && document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ? document.body.scrollLeft : 0;
 	}
 
+	this.AnchoElemenPagina = function()
+	{
+		return dialog.parentNode.innerWidth;
+	}
+
+	this.AltoElemenPagina = function()
+	{
+		return dialog.parentNode.innerHeight;
+	}
+
+	this.PosicionElemenTop = function()
+	{
+		return typeof dialog.parentNode.pageYOffset != 'undefined' ? dialog.parentNode.pageYOffset : document.documentElement && document.documentElement.scrollTop ? document.documentElement.scrollTop : dialog.parentNode.scrollTop ? dialog.parentNode.scrollTop : 0;
+	}
+
+	this.posicionElemenLeft = function()
+	{
+		return typeof dialog.parentNode.pageXOffset != 'undefined' ? dialog.parentNode.pageXOffset : document.documentElement && document.documentElement.scrollLeft ? document.documentElement.scrollLeft : dialog.parentNode.scrollLeft ? dialog.parentNode.scrollLeft : 0;
+	}
+
 	this.MostrarDialogo = function()
 	{
-		var width       = this.AnchoPagina();
-		var height      = this.AltoPagina();
-		var left        = this.posicionLeft();
-		var top         = this.PosicionTop();
+		if ( pboEnElemento )
+		{
+			var width       = this.AnchoElemenPagina();
+			var height      = this.AltoElemenPagina();
+			var left        = this.posicionElemenLeft();
+			var top         = this.PosicionElemenTop();
+		}
+		else
+		{
+			var width       = this.AnchoPagina();
+			var height      = this.AltoPagina();
+			var left        = this.posicionLeft();
+			var top         = this.PosicionTop();
+		}
 
 		var dialogmask  = document.getElementById('dialog-mask');
 		if( dialogmask == null )
 		{
 			var dialogmask  = document.createElement('div');
 			dialogmask.id   = 'dialog-mask';
-			document.body.appendChild(dialogmask);
+			
+			if ( pboEnElemento )
+			{
+				dialog.parentNode.style.position = 'relative';
+				dialog.parentNode.style.display  = 'block';
+				dialog.parentNode.appendChild(dialogmask);
+			}
+			else
+				document.body.appendChild(dialogmask);	
 
-			dialogmask.style.position   = 'absolute';
-			dialogmask.style.top        = this.opciones.lnuTop;
-			dialogmask.style.left       = this.opciones.lnuLeft;
-			dialogmask.style.width      = "100%";
-			dialogmask.style.height     = "100%";
+			dialogmask.style.position        = 'absolute';
+			dialogmask.style.top             = this.opciones.lnuTop;
+			dialogmask.style.left            = this.opciones.lnuLeft;
+			dialogmask.style.width           = "100%";
+			dialogmask.style.height          = "100%";
 			dialogmask.style.backgroundColor = this.opciones.lstColorFondo;    
-			dialogmask.style.opacity    = '.'+this.opciones.lnuOpacity;
-			dialogmask.style.filter     = 'alpha(opacity='+this.opciones.lnuOpacity+')';
-			dialogmask.alpha            = this.opciones.lnuOpacity;
-			dialogmask.style.zIndex     = this.opciones.lnuZIndex;    
+			dialogmask.style.opacity         = '.'+this.opciones.lnuOpacity;
+			dialogmask.style.filter          = 'alpha(opacity='+this.opciones.lnuOpacity+')';
+			dialogmask.alpha                 = this.opciones.lnuOpacity;
+			dialogmask.style.zIndex          = this.opciones.lnuZIndex;    
 		}
 
-		dialogmask.style.display    = ""; 
-
-		//var dialog = document.getElementById( this.lstIdDiv );
-		dialog.style.display    = "";        
+		dialogmask.style.display = ""; 
+		dialog.style.display     = "";        
 
 		var dialogwidth     = dialog.offsetWidth;
 		var dialogheight    = dialog.offsetHeight;
@@ -73,8 +115,8 @@ function PopupDialogo( pstIdDiv )
 
 		var leftposition    = left + (width / 2) - (dialogwidth / 2);
 
-		dialog.style.top    = topposition + "px";
-		dialog.style.left   = leftposition + "px";
+		dialog.style.top        = topposition + "px";
+		dialog.style.left       = leftposition + "px";
 		dialog.style.position   = 'absolute';
 		dialog.style.zIndex     = this.opciones.lnuZIndex+5;
 		dialog.style.display    = "block";
@@ -87,7 +129,6 @@ function PopupDialogo( pstIdDiv )
 		if( dialogmask != null )
 			dialogmask.style.display    = "none"; 
 
-		//var dialog = document.getElementById( this.lstIdDiv );
 		dialog.style.display    = "none"; 
 	}
 	this.setBackgroundColor = function( pstColor )

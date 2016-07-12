@@ -8,8 +8,8 @@
 </head>
 <body>
 	<header class=""></header>
-	<main class="" style="background: red none repeat scroll 0% 0%; width: 90%; height: 300px; margin: 0px auto;">
-		<div id="popup1" style="background-color: rgb(204, 204, 204); padding: 10px; border-radius: 10px;">
+	<main class="" style="background-color: red; width: 90%; height: 300px; margin: 0px auto;">
+		<div id="popup1"  style="background-color: rgb(204, 204, 204); padding: 10px; border-radius: 10px; display:none;">
 			<h1>hola Enfermera</h1>
 			<button id="ocultar">Ocultar</button>
 		</div>
@@ -20,13 +20,15 @@
 </html>
 <script src="popup_dialogo.js"></script>
 <script>
-	var popup = new PopupDialogo( "popup1" );
+	var popup = new PopupDialogo( "popup1", true );
 	
-	popup.MostrarDialogo();
-	popup.setConteLeft('30%');
-	popup.setBackgroundColor( '#000');
-	popup.setOpacity(60);
+	document.getElementById('mostrar').onclick = function(){
+		popup.MostrarDialogo();
+		popup.setConteLeft('30%');
+		popup.setBackgroundColor( '#000');
+		popup.setOpacity(50);
+	}
 
 	document.getElementById('ocultar').onclick = function(){ popup.OcultarDialogo(); }
-	document.getElementById('mostrar').onclick = function(){ popup.MostrarDialogo(); }
+	
 </script>
